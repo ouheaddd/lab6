@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обмен содержимым</title>
+    <style>
+        .code-block {
+            background-color: #f3f3f3;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="zvit">
+        <h1> Крамар Микита ІО-1613 Лабораторна робота 6</h1>
+        <h2>ТЕМА:КЛАСИ. ОБ'ЄКТНА МОДЕЛЬ ДОКУМЕНТА (DOM). ПОДІЇ. ОБ'ЄКТ ПОДІЇ. ДЕЛЕГУВАННЯ ПОДІЙ. THROTTLE. МОДУЛЬНОСТЬ КОДУ   
+            </h2>
+        <h2>Мета: придбати практичні навички роботи з об'єктами. Методи об'єкта.. Callback. Стрілочні функції. Стрілочні функції як колбеки​.
+            .  Реалізація програм засовами мови JAVASCRIPT                    
+            </h2>
+    </div>
+
+    <section class="2">
+            <h1>Завдання 2</h1>
+
+        <label for="input1">Перший:</label>
+        <input type="text" id="input1" value="">
+
+        <label for="input2">Другий:</label>
+        <input type="text" id="input2" value="">
+
+        <button onclick="swapInputValues()">SWAP ME</button>
+
+        <script>
+            function swapInputValues() {
+                //посилання на оба інпута
+                var input1 = document.getElementById('input1');
+                var input2 = document.getElementById('input2');
+    
+                // Обмін значеннями
+                var temp = input1.value;
+                input1.value = input2.value;
+                input2.value = temp;
+            }
+        </script>
+    </section>
+
+    <section class="4">
+        <h1>Завдання 4</h1>
+        <script>
+            function changeSize(increment) {
+                const square = document.getElementById('square');
+                const currentWidth = parseInt(window.getComputedStyle(square).width);
+                const currentHeight = parseInt(window.getComputedStyle(square).height);
+                
+                const newSize = currentWidth + increment;
+    
+                if (newSize > 0) {
+                    square.style.width = newSize + 'px';
+                    square.style.height = newSize + 'px';
+                }
+            }
+        </script>
+
+        <style>
+            #square {
+                width: 100px;
+                height: 100px;
+                background-color: blue;
+            }
+        </style>
+
+        <h1>Изменение размера квадрата</h1>
+            
+        <button onclick="changeSize(-15)">Зменшити</button>
+        <button onclick="changeSize(15)">Збільшити</button>
+
+        <div id="square"></div>
+
+    </section>
+
+    <section class="6">
+
+        <h1>Завдання 6</h1>
+
+        <h1>Подвоїти значення у списку</h1>
+    
+        <button onclick="doubleValues()">Подвоїти</button>
+    
+        <ul id="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+
+        <script>
+            function doubleValues() {
+                const listItems = document.querySelectorAll('ul#list li');
+                listItems.forEach(item => {
+                    const currentValue = parseFloat(item.textContent);
+                    item.textContent = currentValue * 2;
+                });
+            }
+        </script>
+    </section>
+
+    <section class="7">
+
+        <h1>Завдання 7</h1>
+
+            <ul id="categories">
+        <li class="item">
+            <h2>Animals</h2>
+            <ul>
+                <li>Cat</li>
+                <li>Hamster</li>
+                <li>Horse</li>
+                <li>Parrot</li>
+            </ul>
+        </li>
+        <li class="item">
+            <h2>Products</h2>
+            <ul>
+                <li>Bread</li>
+                <li>Parsley</li>
+                <li>Cheese</li>
+            </ul>
+        </li>
+        <li class="item">
+            <h2>Technologies</h2>
+            <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>React</li>
+                <li>Node.js</li>
+            </ul>
+        </li>
+    </ul>
+
+    <script>
+            const categories = document.querySelectorAll('#categories .item');
+            console.log(`Number of categories: ${categories.length}`);
+            categories.forEach(category => {
+            //Знайдемо заголовкі
+            const categoryTitle = category.querySelector('h2').textContent;
+
+            // знайдемо всі елементи списка внутрі категорії
+            const categoryElements = category.querySelectorAll('ul li').length;
+
+            // вивод у консоль заголовок та кол-во елементів
+            console.log(`Category: ${categoryTitle}`);
+            console.log(`Elements: ${categoryElements}`);
+        });
+    </script>
+
+    </section>
+
+    <section class="8">
+
+        <h1>Завдання 8</h1>
+
+        <form class="login-form">
+            <label>
+                Email
+                <input type="email" name="email" />
+            </label>
+            <br>
+            <label>
+                Password
+                <input type="password" name="password" />
+            </label>
+            <br>
+            <button type="submit">Log in</button>
+        </form>
+    
+        <script>
+            document.querySelector('.login-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // не дає перезавантажити сторінку
+    
+                const formElements = event.currentTarget.elements;
+                const email = formElements.email.value.trim();
+                const password = formElements.password.value.trim();
+    
+                //перевіряємо, що всі поля заполнені
+                if (!email || !password) {
+                    alert('All form fields must be filled in.');
+                    return;
+                }
+    
+                //создаємо обєкт с формою
+                const formData = {
+                    email: email,
+                    password: password
+                };
+    
+                // Вивод у консоль
+                console.log(formData);
+    
+                // Кліар форми
+                event.currentTarget.reset();
+            });
+        </script>
+    </section>
+
+    <section class="9">
+        <h1>Завдання 9</h1>
+        <div class="widget">
+            <p>Background color: <span class="color">-</span></p>
+            <button type="button" class="change-color">Change color</button>
+          </div>
+        
+          <script>
+            function getRandomHexColor() {
+              return `#${Math.floor(Math.random() * 16777215)
+                .toString(16)
+                .padStart(6, '0')}`;
+            }
+        
+            const changeColorButton = document.querySelector('.change-color');
+            const colorSpan = document.querySelector('.color');
+            const body = document.body;
+
+            changeColorButton.addEventListener('click', () => {
+              const newColor = getRandomHexColor();
+        
+              body.style.backgroundColor = newColor;
+        
+              colorSpan.textContent = newColor;
+            });
+          </script>
+    </section>
+
+    <section class="10">
+        <h1>Завдання 10</h1>
+        <div id="controls">
+            <input type="number" min="1" max="100" step="1" />
+            <button type="button" data-create>Create</button>
+            <button type="button" data-destroy>Destroy</button>
+          </div>
+        
+          <div id="boxes"></div>
+        
+          <script>
+            function getRandomHexColor() {
+              return `#${Math.floor(Math.random() * 16777215)
+                .toString(16)
+                .padStart(6, 0)}`;
+            }
+        
+            const controls = document.querySelector('#controls');
+            const input = controls.querySelector('input');
+            const createButton = controls.querySelector('button[data-create]');
+            const destroyButton = controls.querySelector('button[data-destroy]');
+            const boxes = document.querySelector('#boxes');
+        
+            createButton.addEventListener('click', () => {
+              const amount = parseInt(input.value, 10);
+        
+              if (isNaN(amount) || amount < 1 || amount > 100) {
+                alert('Please enter a number between 1 and 100.');
+                return;
+              }
+        
+              createBoxes(amount);
+              input.value = ''; 
+            });
+        
+            destroyButton.addEventListener('click', destroyBoxes);
+        
+            function createBoxes(amount) {
+              boxes.innerHTML = ''; 
+        
+              let size = 30;
+              const fragment = document.createDocumentFragment();
+        
+              for (let i = 0; i < amount; i++) {
+                const div = document.createElement('div');
+                div.style.width = `${size}px`;
+                div.style.height = `${size}px`;
+                div.style.backgroundColor = getRandomHexColor();
+                size += 10;
+                fragment.appendChild(div);
+              }
+        
+              boxes.appendChild(fragment);
+            }
+        
+            function destroyBoxes() {
+              boxes.innerHTML = '';
+            }
+          </script>
+    </section>
+
+
+    <diV><h1>КОД:</h1></diV>
+    <div class="code-block">
+        <h1>Завдання 2</h1>
+        <pre><code>
+            function swapInputValues() {
+                //посилання на оба інпута
+                var input1 = document.getElementById('input1');
+                var input2 = document.getElementById('input2');
+    
+                // Обмін значеннями
+                var temp = input1.value;
+                input1.value = input2.value;
+                input2.value = temp;
+            }
+        </code></pre>
+
+        <h1>Завдання 4</h1>
+        <pre><code>
+            function changeSize(increment) {
+                const square = document.getElementById('square');
+                const currentWidth = parseInt(window.getComputedStyle(square).width);
+                const currentHeight = parseInt(window.getComputedStyle(square).height);
+                
+                const newSize = currentWidth + increment;
+    
+                if (newSize > 0) {
+                    square.style.width = newSize + 'px';
+                    square.style.height = newSize + 'px';
+                }
+            }
+        </code></pre>
+
+        <h1>Завдання 6</h1>
+        <pre><code>
+            function doubleValues() {
+                const listItems = document.querySelectorAll('ul#list li');
+                listItems.forEach(item => {
+                    const currentValue = parseFloat(item.textContent);
+                    item.textContent = currentValue * 2;
+                });
+            }
+        </code></pre>
+
+        <h1>Завдання 7</h1>
+        <pre><code>
+            const categories = document.querySelectorAll('#categories .item');
+            console.log(`Number of categories: ${categories.length}`);
+            categories.forEach(category => {
+            //Знайдемо заголовкі
+            const categoryTitle = category.querySelector('h2').textContent;
+
+            // знайдемо всі елементи списка внутрі категорії
+            const categoryElements = category.querySelectorAll('ul li').length;
+
+            // вивод у консоль заголовок та кол-во елементів
+            console.log(`Category: ${categoryTitle}`);
+            console.log(`Elements: ${categoryElements}`);
+        });
+        </code></pre>
+
+        <h1>Завдання 8</h1>
+        <pre><code>
+            document.querySelector('.login-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // не дає перезавантажити сторінку
+    
+                const formElements = event.currentTarget.elements;
+                const email = formElements.email.value.trim();
+                const password = formElements.password.value.trim();
+    
+                //перевіряємо, що всі поля заполнені
+                if (!email || !password) {
+                    alert('All form fields must be filled in.');
+                    return;
+                }
+    
+                //создаємо обєкт с формою
+                const formData = {
+                    email: email,
+                    password: password
+                };
+    
+                // Вивод у консоль
+                console.log(formData);
+    
+                // Кліар форми
+                event.currentTarget.reset();
+            });
+        </code></pre>
+
+        <h1>Завдання 9</h1>
+        <pre><code>
+            function getRandomHexColor() {
+                return `#${Math.floor(Math.random() * 16777215)
+                  .toString(16)
+                  .padStart(6, '0')}`;
+              }
+          
+              const changeColorButton = document.querySelector('.change-color');
+              const colorSpan = document.querySelector('.color');
+              const body = document.body;
+  
+              changeColorButton.addEventListener('click', () => {
+                const newColor = getRandomHexColor();
+          
+                body.style.backgroundColor = newColor;
+          
+                colorSpan.textContent = newColor;
+              });
+        </code></pre>
+
+        <h1>Завдання 10</h1>
+        <pre><code>
+            function getRandomHexColor() {
+                return `#${Math.floor(Math.random() * 16777215)
+                  .toString(16)
+                  .padStart(6, 0)}`;
+              }
+          
+              const controls = document.querySelector('#controls');
+              const input = controls.querySelector('input');
+              const createButton = controls.querySelector('button[data-create]');
+              const destroyButton = controls.querySelector('button[data-destroy]');
+              const boxes = document.querySelector('#boxes');
+          
+              createButton.addEventListener('click', () => {
+                const amount = parseInt(input.value, 10);
+          
+                if (isNaN(amount) || amount < 1 || amount > 100) {
+                  alert('Please enter a number between 1 and 100.');
+                  return;
+                }
+          
+                createBoxes(amount);
+                input.value = ''; 
+              });
+          
+              destroyButton.addEventListener('click', destroyBoxes);
+          
+              function createBoxes(amount) {
+                boxes.innerHTML = ''; 
+          
+                let size = 30;
+                const fragment = document.createDocumentFragment();
+          
+                for (let i = 0; i < amount; i++) {
+                  const div = document.createElement('div');
+                  div.style.width = `${size}px`;
+                  div.style.height = `${size}px`;
+                  div.style.backgroundColor = getRandomHexColor();
+                  size += 10;
+                  fragment.appendChild(div);
+                }
+          
+                boxes.appendChild(fragment);
+              }
+          
+              function destroyBoxes() {
+                boxes.innerHTML = '';
+              } 
+        </code></pre>
+    </div>
+</body>
+</html>
+
+
+
